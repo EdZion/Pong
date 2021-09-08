@@ -13,7 +13,7 @@
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: { y: 800 }
+                gravity: { y: 0 }
             }
         },
         scene: {
@@ -36,21 +36,14 @@
     {
         this.add.image(400, 300, 'sky');
 
-        var particles = this.add.particles('red');
+        var r1 = this.add.rectangle(200, 200, 50, 50, 0x6666ff);
+        this.physics.world.enable(r1);
 
-        var emitter = particles.createEmitter({
-            speed: 100,
-            scale: { start: 1, end: 0 },
-            blendMode: 'ADD'
-        });
+        r1.body.setVelocity(100, 200);
+        r1.body.setBounce(1, 1);
+        r1.body.setCollideWorldBounds(true);
 
-        var logo = this.physics.add.image(200, 100, 'logo');
-
-        logo.setVelocity(100, 200);
-        logo.setBounce(1, 1);
-        logo.setCollideWorldBounds(true);
-
-        emitter.startFollow(logo);
+        emitter.startFollow(r1);
     }
     </script>
 
