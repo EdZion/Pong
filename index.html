@@ -18,25 +18,52 @@
         scene: {
           preload: preload,
           create: create,
+          update: updateGame,
         },
       };
 
       var game = new Phaser.Game(config);
 
       function preload() {
-         this.load.image("background", "assets/Background.png");
+        this.load.image("background", "assets/Background.png");
+        this.load.image("player", "assets/Padel.png");
+        this.load.image("bot", "assets/Padel.png");
+
+       
       }
 
       function create() {
+        cursor = this.input.keyboard.createCursorKeys();
+        console.log(cursor);
+
+
+        this.add.image(400, 300, "background");    
+        player = this.physics.add.sprite(20, 300, 'player');
+        bot = this.physics.add.sprite(780, 300, 'bot');
+
+        var ball = this.add.rectangle(200, 200, 30, 30, 0xffffff);
+
+        player.body.setCollideWorldBounds(true);
+
+        this.physics.world.enable(ball);
+
+        ball.body.setVelocity(100, 200);
+        ball.body.setBounce(1, 1);
+        ball.body.setCollideWorldBounds(true);
+      }
+
+      function updateGame() {
+        if (cursor.up.isDown) {
+          
+          player.setVelocityY(-150);
+        } else if (cursor.down.isDown) {
         
-       this.add.image(400, 300, "background");
+          player.setVelocityY(150);
+        }
+        else {
+          player.setVelocityY(0);
+        }
 
-        var r1 = this.add.rectangle(200, 200, 50, 50, 0xffffff);
-        this.physics.world.enable(r1);
-
-        r1.body.setVelocity(100, 200);
-        r1.body.setBounce(1, 1);
-        r1.body.setCollideWorldBounds(true);
       }
     </script>
   </body>
