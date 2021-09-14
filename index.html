@@ -30,8 +30,8 @@
         this.load.image("bot", "assets/Padel.png");
       }
 
-      var velocityX = 200;
-      var velocityY = 100;
+      var velocityX = 250;
+      var velocityY = 150;
 
       function create() {
         cursor = this.input.keyboard.createCursorKeys();
@@ -46,6 +46,9 @@
         player.body.setCollideWorldBounds(true);
         player.body.immovable = true;
 
+        bot.body.setCollideWorldBounds(true);
+        bot.body.immovable = true;
+
         this.physics.world.enable(ball);
 
         ball.body.setVelocity(velocityY, velocityX);
@@ -53,10 +56,10 @@
         ball.body.setCollideWorldBounds(true);
 
         this.physics.add.collider(ball, player, hitPlayer, null, this);
+        this.physics.add.collider(ball, bot, hitPlayer, null, this);
       }
 
       function hitPlayer(ball, player) {
-        velocityX = velocityX + 50;
         velocityX = velocityX * -1;
         console.log(velocityX);
 
